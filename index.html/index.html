@@ -76,27 +76,27 @@
             max-width: 1400px;
             width: 100%;
             margin: 0 auto;
-            padding: 40px 20px;
+            padding: 20px 15px;
         }
         
         /* الهيدر */
         .header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
             position: relative;
-            padding: 40px 0;
+            padding: 30px 0 20px;
         }
         
         .logo {
-            font-size: 4.5rem;
+            font-size: 2.8rem;
             font-weight: 700;
             background: linear-gradient(135deg, var(--gold) 0%, var(--accent-light) 50%, var(--accent) 100%);
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
-            letter-spacing: 4px;
+            letter-spacing: 2px;
             position: relative;
             display: inline-block;
         }
@@ -104,43 +104,44 @@
         .logo::after {
             content: '';
             position: absolute;
-            bottom: -10px;
+            bottom: -8px;
             right: 0;
             width: 100%;
-            height: 3px;
+            height: 2px;
             background: linear-gradient(90deg, transparent, var(--accent), transparent);
         }
         
         .tagline {
-            font-size: 1.6rem;
+            font-size: 1.2rem;
             color: var(--text-secondary);
             font-weight: 400;
             max-width: 800px;
-            margin: 25px auto 0;
-            line-height: 1.8;
+            margin: 20px auto 0;
+            line-height: 1.6;
             position: relative;
+            padding: 0 10px;
         }
 
         .tagline::before, .tagline::after {
             content: "✦";
             color: var(--gold);
-            margin: 0 15px;
-            font-size: 1.2rem;
+            margin: 0 10px;
+            font-size: 1rem;
         }
         
         /* نظام التبويبات العمودية */
         .tabs-vertical-container {
             display: flex;
             flex-direction: column;
-            gap: 25px;
+            gap: 20px;
             max-width: 1200px;
             margin: 0 auto;
         }
         
         .vertical-tab {
             background: var(--card-bg);
-            border-radius: 25px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
             border: 1px solid var(--card-border);
             overflow: hidden;
             backdrop-filter: blur(10px);
@@ -161,7 +162,7 @@
 
         .vertical-tab:hover {
             transform: translateY(-5px);
-            box-shadow: var(--glow), 0 15px 30px rgba(0, 0, 0, 0.6);
+            box-shadow: var(--glow), 0 12px 25px rgba(0, 0, 0, 0.5);
         }
         
         .vertical-tab.tarot-tab {
@@ -177,13 +178,13 @@
         }
         
         .vertical-tab-header {
-            padding: 30px;
+            padding: 20px 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             border-bottom: 1px solid;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
+            flex-direction: column;
+            gap: 12px;
             position: relative;
             overflow: hidden;
         }
@@ -214,23 +215,20 @@
             border-bottom-color: rgba(139, 92, 246, 0.2);
         }
         
-        .vertical-tab-header:hover {
-            background: rgba(255, 255, 255, 0.05) !important;
-        }
-        
         .vertical-tab-header.active {
             background: rgba(255, 255, 255, 0.08) !important;
             border-bottom-color: transparent;
-            border-radius: 25px 25px 0 0;
+            border-radius: 20px 20px 0 0;
         }
         
         .vertical-tab-title {
-            font-size: 2rem;
+            font-size: 1.5rem;
             font-weight: 700;
-            margin-bottom: 8px;
             display: flex;
-            align-items: center;
-            gap: 15px;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 10px;
+            width: 100%;
         }
         
         .vertical-tab.tarot-tab .vertical-tab-title {
@@ -246,10 +244,11 @@
         }
         
         .vertical-tab-title .price-range {
-            font-size: 1.3rem;
+            font-size: 1.1rem;
             font-weight: 600;
-            padding: 8px 20px;
-            border-radius: 20px;
+            padding: 6px 15px;
+            border-radius: 15px;
+            width: fit-content;
         }
         
         .vertical-tab.tarot-tab .price-range {
@@ -268,8 +267,10 @@
         }
         
         .vertical-tab-subtitle {
-            font-size: 1.2rem;
+            font-size: 1rem;
             color: rgba(248, 250, 252, 0.8);
+            text-align: right;
+            width: 100%;
         }
         
         .vertical-tab-content {
@@ -280,29 +281,48 @@
         }
         
         .vertical-tab-content.active {
-            padding: 30px;
+            padding: 20px 15px;
             max-height: 1000px;
         }
         
-        /* شبكة الخدمات - ترتيب أفقي */
+        /* شبكة الخدمات - تصميم متجاوب للهاتف */
         .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 25px;
+            display: flex;
+            gap: 15px;
+            width: 100%;
+            overflow-x: auto;
+            padding: 10px 5px 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--accent) transparent;
+        }
+
+        .services-grid::-webkit-scrollbar {
+            height: 6px;
+        }
+
+        .services-grid::-webkit-scrollbar-track {
+            background: transparent;
+            border-radius: 10px;
+        }
+
+        .services-grid::-webkit-scrollbar-thumb {
+            background: var(--accent);
+            border-radius: 10px;
         }
         
         .service-card {
             background: rgba(20, 18, 40, 0.7);
             border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 20px;
-            padding: 25px;
+            border-radius: 18px;
+            padding: 20px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
             backdrop-filter: blur(5px);
             text-align: center;
-            min-height: 280px;
+            min-width: 280px;
+            flex-shrink: 0;
             display: flex;
             flex-direction: column;
             z-index: 1;
@@ -332,7 +352,7 @@
         }
         
         .service-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-8px);
             box-shadow: var(--glow), 0 10px 25px rgba(0, 0, 0, 0.4);
             border-color: rgba(139, 92, 246, 0.5);
         }
@@ -343,13 +363,13 @@
         }
         
         .service-header {
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .service-title {
-            font-size: 1.5rem;
+            font-size: 1.3rem;
             font-weight: 700;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .tarot-tab .service-title {
@@ -365,15 +385,15 @@
         }
         
         .service-type {
-            font-size: 1rem;
-            margin-bottom: 10px;
+            font-size: 0.9rem;
+            margin-bottom: 8px;
             color: rgba(248, 250, 252, 0.8);
         }
         
         .service-price {
-            font-size: 2.2rem;
+            font-size: 1.8rem;
             font-weight: 700;
-            margin: 15px 0;
+            margin: 12px 0;
         }
         
         .tarot-tab .service-price {
@@ -389,14 +409,14 @@
         }
         
         .service-duration {
-            font-size: 1rem;
-            margin: 15px 0;
+            font-size: 0.9rem;
+            margin: 12px 0;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 10px 15px;
-            border-radius: 15px;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: 12px;
         }
         
         .tarot-tab .service-duration {
@@ -415,10 +435,10 @@
         }
         
         .service-description {
-            font-size: 1rem;
-            line-height: 1.6;
+            font-size: 0.9rem;
+            line-height: 1.5;
             border-top: 1px solid rgba(139, 92, 246, 0.2);
-            padding-top: 15px;
+            padding-top: 12px;
             margin-top: auto;
             color: rgba(248, 250, 252, 0.8);
         }
@@ -426,8 +446,8 @@
         /* الفوتر */
         .footer {
             text-align: center;
-            margin-top: 80px;
-            padding-top: 40px;
+            margin-top: 50px;
+            padding-top: 30px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             position: relative;
         }
@@ -444,75 +464,85 @@
         
         .footer-text {
             color: rgba(248, 250, 252, 0.6);
-            font-size: 1.1rem;
+            font-size: 1rem;
         }
         
-        /* تحسينات للجوال */
-        @media (max-width: 1200px) {
-            .services-grid {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 18px;
-            }
-        }
-        
-        @media (max-width: 768px) {
+        /* تحسينات للشاشات الكبيرة */
+        @media (min-width: 768px) {
             .container {
-                padding: 30px 15px;
+                padding: 30px 20px;
+            }
+            
+            .header {
+                margin-bottom: 50px;
+                padding: 40px 0 30px;
             }
             
             .logo {
-                font-size: 3rem;
+                font-size: 3.5rem;
+                letter-spacing: 3px;
             }
             
             .tagline {
-                font-size: 1.3rem;
+                font-size: 1.4rem;
             }
             
             .vertical-tab-header {
-                padding: 20px;
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
+                padding: 25px;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 20px;
             }
             
             .vertical-tab-title {
-                font-size: 1.6rem;
+                font-size: 1.8rem;
+                flex-direction: row;
+                align-items: center;
+                gap: 15px;
+                width: auto;
             }
             
             .vertical-tab-title .price-range {
+                font-size: 1.2rem;
+                padding: 8px 20px;
+            }
+            
+            .vertical-tab-subtitle {
                 font-size: 1.1rem;
+                text-align: left;
+                width: auto;
             }
             
             .vertical-tab-content.active {
-                padding: 20px;
+                padding: 25px;
             }
             
             .services-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 20px;
+                overflow-x: visible;
+                padding: 0;
             }
             
             .service-card {
-                padding: 20px;
-                min-height: auto;
+                min-width: auto;
+                padding: 25px;
             }
         }
-        
-        @media (max-width: 480px) {
+
+        @media (min-width: 1024px) {
             .logo {
-                font-size: 2.5rem;
+                font-size: 4.5rem;
             }
             
-            .tagline {
-                font-size: 1.1rem;
+            .services-grid {
+                gap: 25px;
             }
             
-            .vertical-tab-header {
-                padding: 18px;
-            }
-            
-            .vertical-tab-title {
-                font-size: 1.4rem;
+            .service-card {
+                padding: 30px;
             }
         }
 
@@ -523,11 +553,7 @@
 
         @keyframes floating {
             0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .glow-text {
-            text-shadow: 0 0 10px rgba(139, 92, 246, 0.5);
+            50% { transform: translateY(-8px); }
         }
     </style>
 </head>
@@ -720,13 +746,13 @@
         // إنشاء النجوم العشوائية
         function createStars() {
             const starsContainer = document.getElementById('stars');
-            const starsCount = 200;
+            const starsCount = 150;
             
             for (let i = 0; i < starsCount; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 
-                const size = Math.random() * 3;
+                const size = Math.random() * 2;
                 const posX = Math.random() * 100;
                 const posY = Math.random() * 100;
                 const delay = Math.random() * 5;
