@@ -285,50 +285,32 @@
             max-height: 1000px;
         }
         
-        /* شبكة الخدمات - تصميم متجاوب للهاتف */
-        .services-grid {
+        /* الحقول الأفقية الجديدة */
+        .service-fields {
             display: flex;
-            gap: 15px;
+            flex-direction: column;
+            gap: 12px;
             width: 100%;
-            overflow-x: auto;
-            padding: 10px 5px 20px;
-            scrollbar-width: thin;
-            scrollbar-color: var(--accent) transparent;
-        }
-
-        .services-grid::-webkit-scrollbar {
-            height: 6px;
-        }
-
-        .services-grid::-webkit-scrollbar-track {
-            background: transparent;
-            border-radius: 10px;
-        }
-
-        .services-grid::-webkit-scrollbar-thumb {
-            background: var(--accent);
-            border-radius: 10px;
         }
         
-        .service-card {
+        .service-field {
             background: rgba(20, 18, 40, 0.7);
             border: 1px solid rgba(139, 92, 246, 0.2);
-            border-radius: 18px;
-            padding: 20px;
+            border-radius: 12px;
+            padding: 15px;
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(5px);
-            text-align: center;
-            min-width: 280px;
-            flex-shrink: 0;
             display: flex;
-            flex-direction: column;
-            z-index: 1;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+            min-height: auto;
         }
 
-        .service-card::before {
+        .service-field::before {
             content: '';
             position: absolute;
             top: 0;
@@ -339,108 +321,108 @@
             z-index: -1;
         }
         
-        .tarot-tab .service-card {
+        .tarot-tab .service-field {
             border-color: rgba(59, 130, 246, 0.25);
         }
         
-        .horoscope-tab .service-card {
+        .horoscope-tab .service-field {
             border-color: rgba(16, 185, 129, 0.25);
         }
         
-        .coffee-tab .service-card {
+        .coffee-tab .service-field {
             border-color: rgba(139, 92, 246, 0.25);
         }
         
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--glow), 0 10px 25px rgba(0, 0, 0, 0.4);
-            border-color: rgba(139, 92, 246, 0.5);
+        .service-field:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--glow), 0 5px 15px rgba(0, 0, 0, 0.3);
+            border-color: rgba(139, 92, 246, 0.4);
         }
         
-        .service-card.featured {
+        .service-field.featured {
             border-width: 2px;
             background: rgba(30, 27, 51, 0.9);
         }
         
-        .service-header {
-            margin-bottom: 15px;
+        .field-content {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+            flex: 1;
         }
         
-        .service-title {
-            font-size: 1.3rem;
+        .field-title {
+            font-size: 1.1rem;
             font-weight: 700;
-            margin-bottom: 8px;
+            margin: 0;
         }
         
-        .tarot-tab .service-title {
+        .tarot-tab .field-title {
             color: #93C5FD;
         }
         
-        .horoscope-tab .service-title {
+        .horoscope-tab .field-title {
             color: #6EE7B7;
         }
         
-        .coffee-tab .service-title {
+        .coffee-tab .field-title {
             color: #C4B5FD;
         }
         
-        .service-type {
+        .field-description {
             font-size: 0.9rem;
-            margin-bottom: 8px;
             color: rgba(248, 250, 252, 0.8);
+            margin: 0;
         }
         
-        .service-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            margin: 12px 0;
-        }
-        
-        .tarot-tab .service-price {
-            color: #60A5FA;
-        }
-        
-        .horoscope-tab .service-price {
-            color: #34D399;
-        }
-        
-        .coffee-tab .service-price {
-            color: #A78BFA;
-        }
-        
-        .service-duration {
-            font-size: 0.9rem;
-            margin: 12px 0;
+        .field-details {
             display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 8px;
-            padding: 8px 12px;
-            border-radius: 12px;
+            gap: 15px;
+            flex-shrink: 0;
         }
         
-        .tarot-tab .service-duration {
+        .field-duration {
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            border-radius: 8px;
+        }
+        
+        .tarot-tab .field-duration {
             background: rgba(59, 130, 246, 0.15);
             color: #BFDBFE;
         }
         
-        .horoscope-tab .service-duration {
+        .horoscope-tab .field-duration {
             background: rgba(16, 185, 129, 0.15);
             color: #A7F3D0;
         }
         
-        .coffee-tab .service-duration {
+        .coffee-tab .field-duration {
             background: rgba(139, 92, 246, 0.15);
             color: #DDD6FE;
         }
         
-        .service-description {
-            font-size: 0.9rem;
-            line-height: 1.5;
-            border-top: 1px solid rgba(139, 92, 246, 0.2);
-            padding-top: 12px;
-            margin-top: auto;
-            color: rgba(248, 250, 252, 0.8);
+        .field-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            min-width: 70px;
+            text-align: left;
+        }
+        
+        .tarot-tab .field-price {
+            color: #60A5FA;
+        }
+        
+        .horoscope-tab .field-price {
+            color: #34D399;
+        }
+        
+        .coffee-tab .field-price {
+            color: #A78BFA;
         }
         
         /* الفوتر */
@@ -518,17 +500,32 @@
                 padding: 25px;
             }
             
-            .services-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 20px;
-                overflow-x: visible;
-                padding: 0;
+            .service-fields {
+                gap: 15px;
             }
             
-            .service-card {
-                min-width: auto;
-                padding: 25px;
+            .service-field {
+                padding: 18px 20px;
+            }
+            
+            .field-content {
+                flex-direction: row;
+                align-items: center;
+                gap: 20px;
+            }
+            
+            .field-title {
+                font-size: 1.2rem;
+                min-width: 120px;
+            }
+            
+            .field-description {
+                font-size: 1rem;
+            }
+            
+            .field-price {
+                font-size: 1.5rem;
+                min-width: 80px;
             }
         }
 
@@ -537,12 +534,8 @@
                 font-size: 4.5rem;
             }
             
-            .services-grid {
-                gap: 25px;
-            }
-            
-            .service-card {
-                padding: 30px;
+            .service-field {
+                padding: 20px 25px;
             }
         }
 
@@ -563,7 +556,7 @@
 
     <div class="container">
         <div class="header">
-            <h1 class="logo floating">تاروتــــــيون</h1>
+            <h1 class="logo floating">تـــــــــــــاروتــــــيون</h1>
             <p class="tagline">عالم الطاقة والغموض لتجربة روحانية فريدة</p>
         </div>
 
@@ -578,46 +571,43 @@
                     <div class="vertical-tab-subtitle">عــلم الارقــــام والتــفســــير الـروحـــانـي</div>
                 </div>
                 <div class="vertical-tab-content">
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">كشف اولي</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">25 $</div>
+                    <div class="service-fields">
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">كشف اولي</h3>
+                                <p class="field-description">تشخيص مبدئي للطاقة</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 15 دقيقة
-                            </div>
-                            <div class="service-description">
-                                تشخيص مبدئي للطاقة  
-                            </div>
-                        </div>
-                        
-                        <div class="service-card featured">
-                            <div class="service-header">
-                                <h3 class="service-title">كشف مفصل</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">50 $</div>
-                            </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 30 دقيقة
-                            </div>
-                            <div class="service-description">
-                               تحليل طاقة دقيق  
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 15 دقيقة
+                                </div>
+                                <div class="field-price">25 $</div>
                             </div>
                         </div>
                         
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">كشف كامل</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">75 $</div>
+                        <div class="service-field featured">
+                            <div class="field-content">
+                                <h3 class="field-title">كشف مفصل</h3>
+                                <p class="field-description">تحليل طاقة دقيق</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 45 دقيقة
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 30 دقيقة
+                                </div>
+                                <div class="field-price">50 $</div>
                             </div>
-                            <div class="service-description">
-                                جلسة الطاقة الشاملة
+                        </div>
+                        
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">كشف كامل</h3>
+                                <p class="field-description">جلسة الطاقة الشاملة</p>
+                            </div>
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 45 دقيقة
+                                </div>
+                                <div class="field-price">75 $</div>
                             </div>
                         </div>
                     </div>
@@ -631,49 +621,46 @@
                         <span>القـــراءة</span>
                         <span class="price-range">50$ - 300$</span>
                     </div>
-                    <div class="vertical-tab-subtitle">تفسير الاشارات والرسائل </div>
+                    <div class="vertical-tab-subtitle">تفسير الاشارات والرسائل</div>
                 </div>
                 <div class="vertical-tab-content">
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">تــــاروت</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">50 $</div>
+                    <div class="service-fields">
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">تــــاروت</h3>
+                                <p class="field-description">قراءة بطاقات التاروت</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 30 دقيقة
-                            </div>
-                            <div class="service-description">
-                               قراءة بطاقات التاروت
-                            </div>
-                        </div>
-                        
-                        <div class="service-card featured">
-                            <div class="service-header">
-                                <h3 class="service-title">فــــنجان</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">90 $</div>
-                            </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 45 دقيقة
-                            </div>
-                            <div class="service-description">
-                                قراءة فنجان القهوة
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 30 دقيقة
+                                </div>
+                                <div class="field-price">50 $</div>
                             </div>
                         </div>
                         
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">الـــرمل</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">300 $</div>
+                        <div class="service-field featured">
+                            <div class="field-content">
+                                <h3 class="field-title">فــــنجان</h3>
+                                <p class="field-description">قراءة فنجان القهوة</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 90 دقيقة
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 45 دقيقة
+                                </div>
+                                <div class="field-price">90 $</div>
                             </div>
-                            <div class="service-description">
-                               قراءة التخت والرمل
+                        </div>
+                        
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">الـــرمل</h3>
+                                <p class="field-description">قراءة التخت والرمل</p>
+                            </div>
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 90 دقيقة
+                                </div>
+                                <div class="field-price">300 $</div>
                             </div>
                         </div>
                     </div>
@@ -690,46 +677,43 @@
                     <div class="vertical-tab-subtitle">العقل الباطن والأجرام السماوية</div>
                 </div>
                 <div class="vertical-tab-content">
-                    <div class="services-grid">
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">الخريطة الفلكية</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">200 $</div>
+                    <div class="service-fields">
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">الخريطة الفلكية</h3>
+                                <p class="field-description">تحليل الخارطة الشخصية</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 30 دقيقة
-                            </div>
-                            <div class="service-description">
-                                تحليل الخارطة الشخصية
-                            </div>
-                        </div>
-                        
-                        <div class="service-card">
-                            <div class="service-header">
-                                <h3 class="service-title">الإسقاط النجمي</h3>
-                                <div class="service-type">---</div>
-                                <div class="service-price">500 $</div>
-                            </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> توقيت خاص
-                            </div>
-                            <div class="service-description">
-                                جلسة إسقاط نجمي موجهة
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 30 دقيقة
+                                </div>
+                                <div class="field-price">200 $</div>
                             </div>
                         </div>
                         
-                        <div class="service-card featured">
-                            <div class="service-header">
-                                <h3 class="service-title">الرصد</h3>
-                                <div class="service-type">تعقب روحاني</div>
-                                <div class="service-price">800 $</div>
+                        <div class="service-field">
+                            <div class="field-content">
+                                <h3 class="field-title">الإسقاط النجمي</h3>
+                                <p class="field-description">جلسة إسقاط نجمي موجهة</p>
                             </div>
-                            <div class="service-duration">
-                                <i class="far fa-clock"></i> 3 ايام 
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> توقيت خاص
+                                </div>
+                                <div class="field-price">500 $</div>
                             </div>
-                            <div class="service-description">
-                               ...
+                        </div>
+                        
+                        <div class="service-field featured">
+                            <div class="field-content">
+                                <h3 class="field-title">الرصد</h3>
+                                <p class="field-description">تعقب روحاني</p>
+                            </div>
+                            <div class="field-details">
+                                <div class="field-duration">
+                                    <i class="far fa-clock"></i> 3 ايام
+                                </div>
+                                <div class="field-price">800 $</div>
                             </div>
                         </div>
                     </div>
