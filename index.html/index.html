@@ -93,76 +93,9 @@
             padding: 30px 0 20px;
         }
         
-        /* الشعار */
+        /* إزالة الشعار الكبير من الأعلى */
         .site-logo {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0 auto 25px;
-            position: relative;
-            z-index: 1;
-            width: 100%;
-            text-align: center;
-        }
-        
-        .logo-image {
-            width: 150px;
-            height: 150px;
-            
-            /* ضمان ظهور الصورة في المنتصف */
-            display: block;
-            margin: 0 auto;
-            
-            /* إزالة الخلفية البيضاء */
-            background: transparent !important;
-            
-            /* ضبط الشفافية */
-            mix-blend-mode: normal;
-            
-            /* تأثيرات الجمالية */
-            border-radius: 50%;
-            border: 3px solid rgba(139, 92, 246, 0.3);
-            box-shadow: 
-                0 0 25px rgba(139, 92, 246, 0.4),
-                inset 0 0 20px rgba(139, 92, 246, 0.2);
-            
-            /* ضمان ظهور الصورة */
-            object-fit: contain;
-            
-            /* تأثير عند المرور */
-            transition: all 0.4s ease;
-            animation: logoGlow 4s ease-in-out infinite;
-            
-            /* حل نهائي لإزالة خلفية الصورة */
-            filter: 
-                drop-shadow(0 0 10px rgba(139, 92, 246, 0.5))
-                brightness(1.1)
-                contrast(1.1);
-        }
-        
-        .logo-image:hover {
-            transform: scale(1.05) rotate(5deg);
-            border-color: rgba(139, 92, 246, 0.6);
-            box-shadow: 
-                0 0 35px rgba(139, 92, 246, 0.6),
-                inset 0 0 25px rgba(139, 92, 246, 0.3);
-            filter: 
-                drop-shadow(0 0 15px rgba(139, 92, 246, 0.7))
-                brightness(1.15)
-                contrast(1.15);
-        }
-        
-        @keyframes logoGlow {
-            0%, 100% {
-                box-shadow: 
-                    0 0 25px rgba(139, 92, 246, 0.4),
-                    inset 0 0 20px rgba(139, 92, 246, 0.2);
-            }
-            50% {
-                box-shadow: 
-                    0 0 35px rgba(139, 92, 246, 0.6),
-                    inset 0 0 25px rgba(139, 92, 246, 0.3);
-            }
+            display: none;
         }
         
         .logo {
@@ -255,14 +188,16 @@
             border-color: rgba(139, 92, 246, 0.3);
         }
         
+        /* تعديل الهيدر للتبويبات */
         .vertical-tab-header {
             padding: 20px 15px;
             cursor: pointer;
             transition: all 0.3s ease;
             border-bottom: 1px solid;
             display: flex;
-            flex-direction: column;
-            gap: 12px;
+            align-items: center;
+            justify-content: space-between;
+            gap: 15px;
             position: relative;
             overflow: hidden;
         }
@@ -299,6 +234,58 @@
             border-radius: 20px 20px 0 0;
         }
         
+        .tab-header-content {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            flex: 1;
+            /* تغيير الاتجاه للصورة على اليسار */
+            flex-direction: row-reverse;
+            justify-content: flex-start;
+        }
+        
+        .tab-logo {
+            width: 60px;
+            height: 60px;
+            background: transparent !important;
+            border-radius: 50%;
+            border: 2px solid;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            flex-shrink: 0;
+            /* الصورة على اليسار */
+            order: 1;
+        }
+        
+        .tarot-tab .tab-logo {
+            border-color: rgba(59, 130, 246, 0.5);
+            background: rgba(59, 130, 246, 0.1) !important;
+        }
+        
+        .horoscope-tab .tab-logo {
+            border-color: rgba(16, 185, 129, 0.5);
+            background: rgba(16, 185, 129, 0.1) !important;
+        }
+        
+        .coffee-tab .tab-logo {
+            border-color: rgba(139, 92, 246, 0.5);
+            background: rgba(139, 92, 246, 0.1) !important;
+        }
+        
+        .tab-logo img {
+            width: 50px;
+            height: 50px;
+            object-fit: contain;
+            border-radius: 50%;
+            background: transparent !important;
+            filter: 
+                drop-shadow(0 0 5px rgba(139, 92, 246, 0.5))
+                brightness(1.1)
+                contrast(1.1);
+        }
+        
         .vertical-tab-title {
             font-size: 1.5rem;
             font-weight: 700;
@@ -306,7 +293,10 @@
             flex-direction: column;
             align-items: flex-start;
             gap: 10px;
-            width: 100%;
+            flex: 1;
+            /* النص على اليمين */
+            order: 2;
+            text-align: right;
         }
         
         .vertical-tab.tarot-tab .vertical-tab-title {
@@ -538,11 +528,6 @@
                 padding: 40px 0 30px;
             }
             
-            .logo-image {
-                width: 180px;
-                height: 180px;
-            }
-            
             .logo {
                 font-size: 3.5rem;
                 letter-spacing: 3px;
@@ -554,10 +539,17 @@
             
             .vertical-tab-header {
                 padding: 25px;
-                flex-direction: row;
-                justify-content: space-between;
-                align-items: center;
-                gap: 20px;
+                gap: 25px;
+            }
+            
+            .tab-logo {
+                width: 70px;
+                height: 70px;
+            }
+            
+            .tab-logo img {
+                width: 60px;
+                height: 60px;
             }
             
             .vertical-tab-title {
@@ -565,18 +557,11 @@
                 flex-direction: row;
                 align-items: center;
                 gap: 15px;
-                width: auto;
             }
             
             .vertical-tab-title .price-range {
                 font-size: 1.2rem;
                 padding: 8px 20px;
-            }
-            
-            .vertical-tab-subtitle {
-                font-size: 1.1rem;
-                text-align: left;
-                width: auto;
             }
             
             .vertical-tab-content.active {
@@ -617,9 +602,14 @@
                 font-size: 4.5rem;
             }
             
-            .logo-image {
-                width: 200px;
-                height: 200px;
+            .tab-logo {
+                width: 80px;
+                height: 80px;
+            }
+            
+            .tab-logo img {
+                width: 70px;
+                height: 70px;
             }
             
             .service-field {
@@ -644,11 +634,6 @@
 
     <div class="container">
         <div class="header">
-            <!-- الشعار -->
-            <div class="site-logo">
-                <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون" class="logo-image">
-            </div>
-            
             <h1 class="logo floating">A.N.I</h1>
             <p class="tagline">تـــــــاروتـــــيــون</p>
         </div>
@@ -657,9 +642,15 @@
             <!-- تبويب الكشف - أزرق -->
             <div class="vertical-tab tarot-tab">
                 <div class="vertical-tab-header">
-                    <div class="vertical-tab-title">
-                        <span>كـــشف</span>
-                        <span class="price-range">25$ - 75$</span>
+                    <div class="tab-header-content">
+                        <!-- اللوجو على اليسار -->
+                        <div class="tab-logo">
+                            <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون">
+                        </div>
+                        <div class="vertical-tab-title">
+                            <span>كـــشف</span>
+                            <span class="price-range">25$ - 75$</span>
+                        </div>
                     </div>
                 </div>
                 <div class="vertical-tab-content">
@@ -706,9 +697,15 @@
             <!-- تبويب القراءة - أخضر -->
             <div class="vertical-tab horoscope-tab">
                 <div class="vertical-tab-header">
-                    <div class="vertical-tab-title">
-                        <span>قـــراءة</span>
-                        <span class="price-range">50$ - 300$</span>
+                    <div class="tab-header-content">
+                        <!-- اللوجو على اليسار -->
+                        <div class="tab-logo">
+                            <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون">
+                        </div>
+                        <div class="vertical-tab-title">
+                            <span>قـــراءة</span>
+                            <span class="price-range">50$ - 300$</span>
+                        </div>
                     </div>
                 </div>
                 <div class="vertical-tab-content">
@@ -755,9 +752,15 @@
             <!-- تبويب الرصد - بنفسجي -->
             <div class="vertical-tab coffee-tab">
                 <div class="vertical-tab-header">
-                    <div class="vertical-tab-title">
-                        <span>- VIP -</span>
-                        <span class="price-range">200$ - 800$</span>
+                    <div class="tab-header-content">
+                        <!-- اللوجو على اليسار -->
+                        <div class="tab-logo">
+                            <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون">
+                        </div>
+                        <div class="vertical-tab-title">
+                            <span>- VIP -</span>
+                            <span class="price-range">200$ - 800$</span>
+                        </div>
                     </div>
                 </div>
                 <div class="vertical-tab-content">
@@ -855,9 +858,6 @@
         // تهيئة النجوم عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
-            
-            // لا تفتح أي تبويب تلقائياً
-            // جميع التبويبات تبدأ مغلقة
         });
     </script>
 </body>
