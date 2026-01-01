@@ -6,6 +6,12 @@
     <title>تاروتيون - إدارة المواعيد</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- أيقونة الموقع - الرابط الصحيح -->
+    <link rel="icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" type="image/png">
+    <link rel="apple-touch-icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png">
+    <link rel="shortcut icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" type="image/png">
+    
     <style>
         * {
             margin: 0;
@@ -87,6 +93,78 @@
             padding: 30px 0 20px;
         }
         
+        /* الشعار الجديد - تم التصحيح */
+        .site-logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 25px;
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            text-align: center;
+        }
+        
+        .logo-image {
+            width: 150px;
+            height: 150px;
+            
+            /* ضمان ظهور الصورة في المنتصف */
+            display: block;
+            margin: 0 auto;
+            
+            /* حل لإزالة الخلفية البيضاء */
+            background: transparent !important;
+            
+            /* ضبط الشفافية */
+            mix-blend-mode: normal;
+            
+            /* تأثيرات الجمالية */
+            border-radius: 50%;
+            border: 3px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 
+                0 0 25px rgba(139, 92, 246, 0.4),
+                inset 0 0 20px rgba(139, 92, 246, 0.2);
+            
+            /* ضمان ظهور الصورة */
+            object-fit: contain;
+            
+            /* تأثير عند المرور */
+            transition: all 0.4s ease;
+            animation: logoGlow 4s ease-in-out infinite;
+            
+            /* حل نهائي لإزالة خلفية الصورة */
+            filter: 
+                drop-shadow(0 0 10px rgba(139, 92, 246, 0.5))
+                brightness(1.1)
+                contrast(1.1);
+        }
+        
+        .logo-image:hover {
+            transform: scale(1.05) rotate(5deg);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 
+                0 0 35px rgba(139, 92, 246, 0.6),
+                inset 0 0 25px rgba(139, 92, 246, 0.3);
+            filter: 
+                drop-shadow(0 0 15px rgba(139, 92, 246, 0.7))
+                brightness(1.15)
+                contrast(1.15);
+        }
+        
+        @keyframes logoGlow {
+            0%, 100% {
+                box-shadow: 
+                    0 0 25px rgba(139, 92, 246, 0.4),
+                    inset 0 0 20px rgba(139, 92, 246, 0.2);
+            }
+            50% {
+                box-shadow: 
+                    0 0 35px rgba(139, 92, 246, 0.6),
+                    inset 0 0 25px rgba(139, 92, 246, 0.3);
+            }
+        }
+        
         .logo {
             font-size: 2.8rem;
             font-weight: 700;
@@ -129,7 +207,7 @@
             font-size: 1rem;
         }
         
-        /* نظام التبويبات العمودية */
+        /* باقي CSS كما هو */
         .tabs-vertical-container {
             display: flex;
             flex-direction: column;
@@ -460,6 +538,11 @@
                 padding: 40px 0 30px;
             }
             
+            .logo-image {
+                width: 180px;
+                height: 180px;
+            }
+            
             .logo {
                 font-size: 3.5rem;
                 letter-spacing: 3px;
@@ -534,6 +617,11 @@
                 font-size: 4.5rem;
             }
             
+            .logo-image {
+                width: 200px;
+                height: 200px;
+            }
+            
             .service-field {
                 padding: 20px 25px;
             }
@@ -556,10 +644,16 @@
 
     <div class="container">
         <div class="header">
+            <!-- الشعار - تم التصحيح -->
+            <div class="site-logo">
+                <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون" class="logo-image">
+            </div>
+            
             <h1 class="logo floating">A.N.I</h1>
             <p class="tagline">تـــــــاروتـــــيــون</p>
         </div>
 
+        <!-- باقي الكود كما هو -->
         <div class="tabs-vertical-container">
             <!-- تبويب الكشف - أزرق -->
             <div class="vertical-tab tarot-tab">
@@ -762,6 +856,12 @@
         // تهيئة النجوم عند تحميل الصفحة
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
+            
+            // فتح أول تبويب تلقائياً
+            const firstTab = document.querySelector('.vertical-tab:first-child .vertical-tab-header');
+            if (firstTab) {
+                firstTab.click();
+            }
         });
     </script>
 </body>
