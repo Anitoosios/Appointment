@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@400;500;600;700&display=swap" rel="stylesheet">
     
-    <!-- أيقونة الموقع - الرابط الصحيح -->
+    <!-- أيقونة الموقع -->
     <link rel="icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" type="image/png">
     <link rel="apple-touch-icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png">
     <link rel="shortcut icon" href="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" type="image/png">
@@ -93,7 +93,7 @@
             padding: 30px 0 20px;
         }
         
-        /* الشعار الجديد - تم التصحيح */
+        /* الشعار */
         .site-logo {
             display: flex;
             justify-content: center;
@@ -113,7 +113,7 @@
             display: block;
             margin: 0 auto;
             
-            /* حل لإزالة الخلفية البيضاء */
+            /* إزالة الخلفية البيضاء */
             background: transparent !important;
             
             /* ضبط الشفافية */
@@ -207,7 +207,7 @@
             font-size: 1rem;
         }
         
-        /* باقي CSS كما هو */
+        /* نظام التبويبات العمودية */
         .tabs-vertical-container {
             display: flex;
             flex-direction: column;
@@ -363,7 +363,7 @@
             max-height: 1000px;
         }
         
-        /* الحقول الأفقية الجديدة */
+        /* الحقول الأفقية */
         .service-fields {
             display: flex;
             flex-direction: column;
@@ -644,7 +644,7 @@
 
     <div class="container">
         <div class="header">
-            <!-- الشعار - تم التصحيح -->
+            <!-- الشعار -->
             <div class="site-logo">
                 <img src="https://i.ibb.co/YBhT9rxB/ahmed-naji-logo.png" alt="شعار تاروتيون" class="logo-image">
             </div>
@@ -653,7 +653,6 @@
             <p class="tagline">تـــــــاروتـــــيــون</p>
         </div>
 
-        <!-- باقي الكود كما هو -->
         <div class="tabs-vertical-container">
             <!-- تبويب الكشف - أزرق -->
             <div class="vertical-tab tarot-tab">
@@ -857,11 +856,8 @@
         document.addEventListener('DOMContentLoaded', function() {
             createStars();
             
-            // فتح أول تبويب تلقائياً
-            const firstTab = document.querySelector('.vertical-tab:first-child .vertical-tab-header');
-            if (firstTab) {
-                firstTab.click();
-            }
+            // لا تفتح أي تبويب تلقائياً
+            // جميع التبويبات تبدأ مغلقة
         });
     </script>
 </body>
