@@ -1,0 +1,609 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تاروتيون - إدارة المواعيد</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+        
+        :root {
+            --bg-dark: #0b0d17;
+            --card-bg: rgba(22, 22, 30, 0.7);
+            --card-border: rgba(255, 255, 255, 0.1);
+            --text-main: #f8fafc;
+            --text-secondary: #94a3b8;
+            --item-bg: rgba(255, 255, 255, 0.05);
+            /* ألوان الأقسام */
+            --color-scan: #38bdf8;
+            --color-read: #c084fc;
+            --color-vip: #fbbf24;
+            --color-sub: #34d399;
+            --color-session: #6366f1;
+            --glow-strength: 0px;
+            
+            --accent: #6366f1;
+            --gold: #fbbf24;
+        }
+        
+        body {
+            background-color: var(--bg-dark);
+            background-image: radial-gradient(circle at 50% 0%, #1e1b4b 0%, #020617 100%);
+            color: var(--text-main);
+            min-height: 100vh;
+            padding: 20px 15px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+        
+        .main-container {
+            width: 100%;
+            max-width: 480px; /* عرض مناسب للهواتف */
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+        
+        /* الهيدر */
+        .header { 
+            text-align: center; 
+            margin-bottom: 35px; 
+            padding-top: 20px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(11, 13, 23, 0.85);
+            backdrop-filter: blur(15px);
+            padding-bottom: 20px;
+            border-bottom: 1px solid rgba(99, 102, 241, 0.15);
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.7);
+            margin-left: -15px;
+            margin-right: -15px;
+        }
+
+        .logo-container {
+            display: inline-flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .logo-circle {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(145deg, rgba(255,255,255,0.05), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 12px;
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.2), inset 0 0 10px rgba(99, 102, 241, 0.1);
+            position: relative;
+        }
+        
+        /* حلقة ذهبية تدور حول الشعار */
+        .logo-circle::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            border-radius: 50%;
+            padding: 2px;
+            background: linear-gradient(45deg, transparent, var(--gold), transparent);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            animation: spin-glow 4s linear infinite;
+        }
+
+        @keyframes spin-glow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 900;
+            letter-spacing: 1px;
+            background: linear-gradient(to bottom, #fff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-family: 'Cairo', sans-serif;
+            z-index: 2;
+        }
+
+        .brand-name { 
+            font-size: 1.1rem; 
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background: linear-gradient(90deg, #fff, var(--gold), #fff);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 5s linear infinite;
+            margin-bottom: 2px;
+        }
+
+        @keyframes shine {
+            to { background-position: 200% center; }
+        }
+        
+        .brand-subtitle {
+            font-size: 0.7rem;
+            color: var(--text-secondary);
+            opacity: 0.6;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+        
+        /* Layout - Vertical Stack for Mobile */
+        .grid-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .category-card {
+            background: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 24px;
+            overflow: hidden;
+            backdrop-filter: blur(20px);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        /* Card Theme Accents (Subtle Borders) */
+        .scan-theme { --theme-color: var(--color-scan); }
+        .read-theme { --theme-color: var(--color-read); }
+        .vip-theme { --theme-color: var(--color-vip); }
+        .sub-theme { --theme-color: var(--color-sub); }
+        .session-theme { --theme-color: var(--color-session); }
+
+        .card-header {
+            padding: 20px 24px;
+            display: flex;
+            align-items: center;
+            background: transparent;
+            gap: 15px;
+            cursor: pointer; /* جعل المؤشر يدل على القابلية للنقر */
+            transition: background 0.3s;
+        }
+
+        .category-card:hover, .category-card.active {
+            border-color: var(--theme-color);
+            box-shadow: 0 0 25px rgba(0,0,0,0.5), inset 0 0 0 1px var(--theme-color);
+        }
+        
+        .icon-box {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            padding: 4px; /* Add padding for the image */
+            box-shadow: 0 0 15px rgba(0,0,0,0.2);
+        }
+
+        .icon-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+
+        /* Icon Colors */
+        .category-card .icon-box { background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.02)); border: 1px solid rgba(255,255,255,0.1); }
+
+        .card-title { font-size: 1.2rem; font-weight: 700; margin-bottom: 2px; color: var(--text-main); }
+        .card-subtitle { font-size: 0.75rem; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 1px; font-weight: 600; }
+        
+        /* سهم القائمة المنسدلة */
+        .card-header::after {
+            content: '▼';
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-right: auto; /* دفع السهم لأقصى اليسار */
+            transition: transform 0.3s ease;
+            opacity: 0.7;
+        }
+
+        /* تدوير السهم عند الفتح */
+        .category-card.active .card-header::after {
+            transform: rotate(180deg);
+            color: var(--text-main);
+        }
+
+        .card-content {
+            padding: 0 20px 20px 20px;
+            display: none; /* إخفاء المحتوى افتراضياً */
+            animation: slideDown 0.3s ease-out;
+        }
+        
+        /* إظهار المحتوى عند تفعيل الكلاس */
+        .category-card.active .card-content {
+            display: block;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Services List */
+        .service-item {
+            background: var(--item-bg);
+            padding: 16px;
+            border-radius: 16px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.05);
+            transition: all 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .service-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .service-item:active { 
+            background: rgba(255, 255, 255, 0.1); 
+            transform: scale(0.98);
+        }
+        
+        .service-name { font-weight: 600; font-size: 0.95rem; color: var(--text-main); }
+        .service-price { 
+            color: var(--gold); 
+            font-weight: 700; 
+            font-size: 1rem;
+            background: rgba(251, 191, 36, 0.15);
+            padding: 6px 12px;
+            border-radius: 10px;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            box-shadow: 0 0 10px rgba(251, 191, 36, 0.1);
+        }
+        
+        /* Service Item Layout */
+        .service-right { flex: 1; text-align: right; }
+        .service-left { flex: 1; text-align: left; direction: ltr; display: none; /* Hidden on mobile for cleaner look, or keep if needed */ }
+        /* Show English on larger screens if needed, but for mobile let's keep it simple or small */
+        @media (min-width: 400px) {
+            .service-left { display: block; font-size: 0.8rem; opacity: 0.5; }
+        }
+        
+        .service-center { margin: 0 15px; text-align: center; min-width: 60px; }
+        .service-time { font-size: 0.75rem; color: var(--text-secondary); display: block; margin-top: 4px; }
+
+        /* استعلام الرصيد */
+        .balance-box {
+            padding: 10px 0 0 0;
+        }
+        
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            border-radius: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            background: rgba(0, 0, 0, 0.4);
+            color: var(--text-main);
+            font-size: 1rem;
+            margin-bottom: 15px;
+            text-align: center;
+            -webkit-appearance: none; /* iOS fix */
+        }
+        
+        .input-field:focus {
+            outline: none;
+            border-color: var(--color-sub);
+            box-shadow: 0 0 15px rgba(52, 211, 153, 0.2);
+        }
+        
+        .action-btn {
+            background: linear-gradient(135deg, var(--color-sub), #059669);
+            color: #000;
+            border: none;
+            padding: 16px;
+            border-radius: 18px;
+            font-size: 1rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(16, 185, 129, 0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .action-btn:active {
+            transform: translateY(-2px);
+        }
+        
+        .result-display {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 14px;
+            display: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .result-success {
+            background: rgba(16, 185, 129, 0.15);
+            border: 1px solid rgba(16, 185, 129, 0.3);
+            color: #4ade80;
+        }
+        
+        .result-error {
+            background: rgba(239, 68, 68, 0.15);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #f87171;
+        }
+        
+        /* --- تنسيق البطاقة القلابة (Flip Card) --- */
+        .session-flip-container {
+            perspective: 1000px; /* عمق ثلاثي الأبعاد */
+            margin-bottom: 20px;
+            height: 80px; /* ارتفاع ثابت لضمان الدوران */
+            cursor: pointer;
+        }
+
+        .session-flip-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 0.6s;
+            transform-style: preserve-3d;
+        }
+
+        /* الكلاس الذي سيتم إضافته عند النقر لقلب البطاقة */
+        .session-flip-container.flipped .session-flip-inner {
+            transform: rotateX(180deg);
+        }
+
+        .session-front, .session-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden; /* إخفاء الظهر عند الدوران */
+            backface-visibility: hidden;
+            border-radius: 20px;
+            border: 1px solid rgba(99, 102, 241, 0.5);
+            box-shadow: 0 0 20px rgba(99, 102, 241, 0.3);
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* الوجه الأمامي (الغلاف) */
+        .session-front {
+            background: linear-gradient(135deg, rgba(99, 102, 241, 0.4), rgba(15, 23, 42, 0.9));
+            justify-content: center;
+            gap: 15px;
+            z-index: 2;
+        }
+
+        /* الوجه الخلفي (المعلومات) */
+        .session-back {
+            background: rgba(15, 23, 42, 0.95);
+            transform: rotateX(180deg);
+            padding: 0 16px;
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="header">
+        <div class="logo-container">
+            <div class="logo-circle">
+                <span class="logo-text">ANI</span>
+            </div>
+            <div class="brand-name">تــــاروتــــيـون </div>
+            <div class="brand-subtitle"> Ahmed Naji Ibrahim</div>
+        </div>
+    </div>
+
+    <div class="grid-container">
+
+        <!-- Session Flip Card -->
+        <div class="session-flip-container" onclick="this.classList.toggle('flipped')">
+            <div class="session-flip-inner">
+                <!-- الوجه الأمامي: الغلاف -->
+                <div class="session-front">
+                    <img src="ani_logo.png" style="width: 40px; height: 40px; object-fit: contain;" alt="icon">
+                    <span style="font-size: 1.1rem; font-weight: 700;">جلسة عامة</span>
+                </div>
+                <!-- الوجه الخلفي: التفاصيل -->
+                <div class="session-back">
+                    <div style="width: 100%; display: flex; justify-content: space-between; align-items: center;">
+                        <div class="service-right">
+                            <div class="service-name"> جلسة </div>
+                            <div class="service-time">15 دقيقة</div>
+                        </div>
+                        <div class="service-center"><span class="service-price">25$</span></div>
+                        <div class="service-left" style="display: block; font-size: 0.8rem; opacity: 0.5;">
+                            <div class="service-name">Session</div>
+                            <div class="service-time">15 Min</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Scan Card -->
+        <div class="category-card scan-theme">
+            <div class="card-header">
+                <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
+                <div class="title-box">
+                    <div class="card-title">كشف</div>
+                    <div class="card-subtitle">Scanning</div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">كشف مفصل</div><div class="service-time">30 دقيقة</div></div>
+                    <div class="service-center"><span class="service-price">50$</span></div>
+                    <div class="service-left"><div class="service-name">Detailed</div><div class="service-time">30 Min</div></div>
+                </div>
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">كشف كامل</div><div class="service-time">45 دقيقة</div></div>
+                    <div class="service-center"><span class="service-price">75$</span></div>
+                    <div class="service-left"><div class="service-name">Full</div><div class="service-time">45 Min</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Reading Card -->
+        <div class="category-card read-theme">
+            <div class="card-header">
+                <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
+                <div class="title-box">
+                    <div class="card-title">قراءة</div>
+                    <div class="card-subtitle">Reading</div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">تاروت</div><div class="service-time">30 دقيقة</div></div>
+                    <div class="service-center"><span class="service-price">50$</span></div>
+                    <div class="service-left"><div class="service-name">Tarot</div><div class="service-time">30 Min</div></div>
+                </div>
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">فنجان</div><div class="service-time">45 دقيقة</div></div>
+                    <div class="service-center"><span class="service-price">90$</span></div>
+                    <div class="service-left"><div class="service-name">Fincan</div><div class="service-time">45 Min</div></div>
+                </div>
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">رمل</div><div class="service-time">90 دقيقة</div></div>
+                    <div class="service-center"><span class="service-price">300$</span></div>
+                    <div class="service-left"><div class="service-name">Sand</div><div class="service-time">60 Min</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Consultation Card -->
+        <div class="category-card vip-theme">
+            <div class="card-header">
+                <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
+                <div class="title-box">
+                    <div class="card-title">استشارة خاصة</div>
+                    <div class="card-subtitle">Private consultation</div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">طاقة المكان</div></div>
+                    <div class="service-center"><span class="service-price">200$</span></div>
+                    <div class="service-left"><div class="service-name">Feng Shui</div></div>
+                </div>
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">إسقاط نجمي</div></div>
+                    <div class="service-center"><span class="service-price">500$</span></div>
+                    <div class="service-left"><div class="service-name">Astral Projection</div></div>
+                </div>
+                <div class="service-item">
+                    <div class="service-right"><div class="service-name">رصــد</div></div>
+                    <div class="service-center"><span class="service-price">800$</span></div>
+                    <div class="service-left"><div class="service-name">Observation</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Subscription Card -->
+        <div class="category-card sub-theme">
+            <div class="card-header">
+                <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
+                <div class="title-box">
+                    <div class="card-title">المحفظة</div>
+                    <div class="card-subtitle">Wallet </div>
+                </div>
+            </div>
+            <div class="card-content">
+                <div class="balance-box">
+                    <input type="text" id="clientCode" placeholder=" الكود الخاص بك..." class="input-field">
+                    <button onclick="checkBalance()" class="action-btn">تحـقـق</button>
+                    <div id="balanceResult" class="result-display"></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+    // تفعيل خاصية الفتح والإغلاق للبطاقات (Accordion)
+    document.querySelectorAll('.card-header').forEach(header => {
+        header.addEventListener('click', function() {
+            // التبديل بين الفتح والإغلاق للبطاقة الحالية
+            this.parentElement.classList.toggle('active');
+        });
+    });
+
+    // وظيفة التحقق من الرصيد
+    async function checkBalance() {
+        const codeInput = document.getElementById('clientCode').value.trim();
+        const resultDiv = document.getElementById('balanceResult');
+        
+        // !!! ضع رابط الـ CSV المباشر هنا !!!
+            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlG4roYBDalJ6mpiNEF39a7XY-jOMqCPj5admzlf-ncpfPNuEfWqhWqLwGAJyGMECeKNCERzueFFYP/pub?gid=0&single=true&output=csv';
+
+        if(!codeInput) {
+            showResult('يرجى إدخال الكود', 'error');
+            return;
+        }
+
+        showResult('جاري التحقق...', 'success');
+
+        try {
+            const response = await fetch(csvUrl);
+            const data = await response.text();
+            const rows = data.split('\n').map(row => row.split(','));
+            
+            let found = false;
+            let clientName = '';
+            let clientBalance = '';
+
+            // البحث عن الكود في الملف
+            for (let i = 1; i < rows.length; i++) {
+                if (rows[i][1] && rows[i][1].trim() === codeInput) {
+                    clientName = rows[i][0]; // الاسم
+                    clientBalance = rows[i][2]; // الرصيد
+                    found = true;
+                    break;
+                }
+            }
+
+            if (found) {
+                showResult(`أهلاً: ${clientName} <br> رصيدك المتبقي: ${clientBalance} دقيقة`, 'success');
+            } else {
+                showResult('الكود غير صحيح أو منتهي', 'error');
+            }
+
+        } catch (error) {
+            showResult('حدث خطأ في الاتصال', 'error');
+        }
+    }
+    
+    function showResult(message, type) {
+        const resultDiv = document.getElementById('balanceResult');
+        resultDiv.innerHTML = message;
+        resultDiv.className = `result-display ${type === 'success' ? 'result-success' : 'result-error'}`;
+        resultDiv.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
