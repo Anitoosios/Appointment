@@ -327,29 +327,158 @@
         }
         
         .result-display {
-            margin-top: 20px;
-            padding: 15px;
-            border-radius: 14px;
             display: none;
-            font-weight: 600;
-            font-size: 0.95rem;
             animation: fadeIn 0.5s ease;
+            margin-top: 20px;
         }
         
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
+        /* صندوق لعرض رسائل الخطأ والتحميل النصية */
+        .result-text-box {
+            padding: 15px;
+            border-radius: 14px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-align: center;
+        }
+
         .result-success {
             background: rgba(16, 185, 129, 0.15);
             border: 1px solid rgba(16, 185, 129, 0.3);
             color: #4ade80;
         }
-        
+
         .result-error {
             background: rgba(239, 68, 68, 0.15);
             border: 1px solid rgba(239, 68, 68, 0.3);
             color: #f87171;
         }
-        
+
+        /* --- تنسيق بطاقة الرصيد الرقمية --- */
+        .balance-card {
+            background: linear-gradient(145deg, #2c2c3e, #1a1a26); /* Darker, more premium gradient */
+            border-radius: 20px;
+            border: 1px solid var(--card-border);
+            padding: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            aspect-ratio: 1.586; /* Standard card aspect ratio */
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Add a subtle pattern overlay */
+        .balance-card::before {
+            content: '';
+            position: absolute;
+            top: 0; right: 0; bottom: 0; left: 0;
+            background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 40 40"><path fill-opacity="0.03" fill="%23fff" d="M0 40L40 0H20L0 20M40 40V20L20 40"></path></svg>');
+            opacity: 0.5;
+        }
+
+        .balance-card-trc {
+            border-color: var(--color-scan); /* Blue for TRC */
+            box-shadow: 0 0 25px rgba(56, 189, 248, 0.25), 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .balance-card-orb {
+            border-color: var(--color-vip); /* Gold for ORB */
+            box-shadow: 0 0 25px rgba(251, 191, 36, 0.25), 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        /* Top section: Chip and Logo */
+        .bank-card-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+        }
+
+        .bank-card-chip {
+            width: 48px;
+            height: 38px;
+            background: linear-gradient(135deg, #d4af37, #b8860b);
+            border-radius: 6px;
+            position: relative;
+        }
+        /* Chip details */
+        .bank-card-chip::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 10%;
+            right: 10%;
+            height: 1px;
+            background: rgba(0,0,0,0.3);
+        }
+        .bank-card-chip::after {
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 15%;
+            bottom: 15%;
+            width: 1px;
+            background: rgba(0,0,0,0.3);
+        }
+
+        .bank-card-logo {
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            opacity: 0.8;
+        }
+        .balance-card-orb .bank-card-logo { color: var(--color-vip); }
+        .balance-card-trc .bank-card-logo { color: var(--color-scan); }
+
+        /* Card Number */
+        .bank-card-number {
+            font-size: 1.25rem; /* Adjusted for better fit */
+            font-weight: 600;
+            color: var(--text-secondary);
+            letter-spacing: 2px;
+            text-align: center;
+            direction: ltr; /* Ensure LTR for the code */
+            font-family: 'Courier New', Courier, monospace; /* Monospaced font */
+            padding: 10px 0;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.4);
+        }
+
+        /* Bottom section: Holder and Expires */
+        .bank-card-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            font-size: 0.9rem;
+            direction: ltr; /* LTR for this row */
+        }
+
+        .bank-card-holder, .bank-card-expires {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .bank-card-holder { text-align: left; }
+        .bank-card-expires { text-align: right; }
+
+        .card-label {
+            font-size: 0.65rem;
+            font-weight: 600;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 2px;
+            opacity: 0.7;
+        }
+
+        .card-value {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            letter-spacing: 0.5px;
+        }
+
         /* --- تنسيق البطاقة القلابة (Flip Card) --- */
         .session-flip-container {
             perspective: 1000px; /* عمق ثلاثي الأبعاد */
@@ -410,7 +539,7 @@
             <div class="logo-circle">
                 <span class="logo-text">ANI</span>
             </div>
-            <div class="brand-name">تاروتيون</div>
+            <div class="brand-name">تــــاروتــــيـون </div>
             <div class="brand-subtitle"> Ahmed Naji Ibrahim</div>
         </div>
     </div>
@@ -447,8 +576,8 @@
             <div class="card-header">
                 <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
                 <div class="title-box">
-                    <div class="card-title">Scanning</div>
-                    <div class="card-subtitle">كشف</div>
+                    <div class="card-title">كشف</div>
+                    <div class="card-subtitle">Scanning</div>
                 </div>
             </div>
             <div class="card-content">
@@ -470,8 +599,8 @@
             <div class="card-header">
                 <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
                 <div class="title-box">
-                    <div class="card-title">Reading</div>
-                    <div class="card-subtitle">قراءة</div>
+                    <div class="card-title">قراءة</div>
+                    <div class="card-subtitle">Reading</div>
                 </div>
             </div>
             <div class="card-content">
@@ -498,8 +627,8 @@
             <div class="card-header">
                 <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
                 <div class="title-box">
-                    <div class="card-title">Private consultation</div>
-                    <div class="card-subtitle">استشارة خاصة</div>
+                    <div class="card-title">استشارة خاصة</div>
+                    <div class="card-subtitle">Private consultation</div>
                 </div>
             </div>
             <div class="card-content">
@@ -526,8 +655,8 @@
             <div class="card-header">
                 <div class="icon-box"><img src="ani_logo.png" alt="شعار اني"></div>
                 <div class="title-box">
-                    <div class="card-title">Wallet</div>
-                    <div class="card-subtitle">المحفظة</div>
+                    <div class="card-title">المحفظة</div>
+                    <div class="card-subtitle">Wallet </div>
                 </div>
             </div>
             <div class="card-content">
@@ -552,61 +681,107 @@
         });
     });
 
-    // وظيفة التحقق من الرصيد
+    // --- وظائف المحفظة ---
+
+    // 1. إنشاء بطاقة الرصيد الرقمية
+    function createBalanceCardHTML(data) {
+        let cardThemeClass = '';
+        let expiryText = '';
+        let cardType = '';
+
+        if (data.type === 'TRC') {
+            cardThemeClass = 'balance-card-trc';
+            expiryText = 'N/A';
+            cardType = 'TRACE';
+        } else if (data.type === 'ORB') {
+            cardThemeClass = 'balance-card-orb';
+            expiryText = data.value.replace(/\./g, '/'); // تحويل 20.3.2026 إلى 20/3/2026
+            cardType = 'ORBIT';
+        } else {
+            // في حال وجود تنسيق غير معروف، نعرض رسالة نصية بسيطة
+            return `<div class="result-text-box result-success">أهلاً بك, <strong>${data.fullCode}</strong></div>`;
+        }
+
+        return `
+            <div class="balance-card ${cardThemeClass}">
+                <div class="bank-card-top">
+                    <div class="bank-card-chip"></div>
+                    <div class="bank-card-logo">${cardType}</div>
+                </div>
+                <div class="bank-card-number">${data.fullCode}</div>
+                <div class="bank-card-bottom">
+                    <div class="bank-card-holder">
+                        <span class="card-value">VIP Card</span>
+                    </div>
+                    <div class="bank-card-expires">
+                        <span class="card-value">ANI</span>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    // 2. عرض النتيجة في الحاوية المخصصة
+    function showResult(htmlContent) {
+        const resultDiv = document.getElementById('balanceResult');
+        resultDiv.innerHTML = htmlContent;
+        resultDiv.style.display = 'block';
+    }
+
+    // 3. وظيفة التحقق من الرصيد الرئيسية
     async function checkBalance() {
         const codeInput = document.getElementById('clientCode').value.trim();
-        const resultDiv = document.getElementById('balanceResult');
         
         // !!! ضع رابط الـ CSV المباشر هنا !!!
-            const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlG4roYBDalJ6mpiNEF39a7XY-jOMqCPj5admzlf-ncpfPNuEfWqhWqLwGAJyGMECeKNCERzueFFYP/pub?gid=0&single=true&output=csv';
+        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlG4roYBDalJ6mpiNEF39a7XY-jOMqCPj5admzlf-ncpfPNuEfWqhWqLwGAJyGMECeKNCERzueFFYP/pub?gid=0&single=true&output=csv';
 
         if(!codeInput) {
-            showResult('يرجى إدخال الكود', 'error');
+            showResult(`<div class="result-text-box result-error">يرجى إدخال الكود الخاص بك.</div>`);
             return;
         }
 
-        showResult('جاري التحقق...', 'success');
+        showResult(`<div class="result-text-box result-success">جاري التحقق...</div>`);
 
         try {
             const response = await fetch(csvUrl);
+            if (!response.ok) throw new Error('Network response was not ok.');
+            
             const data = await response.text();
             const rows = data.split('\n').map(row => row.split(','));
-            
             let found = false;
-            let clientName = '';
-            let clientBalance = '';
 
-            // البحث عن الكود في الملف
             for (let i = 1; i < rows.length; i++) {
-                if (rows[i][1] && rows[i][1].trim() === codeInput) {
-                    clientName = rows[i][0]; // الاسم
-                    clientBalance = rows[i][2]; // الرصيد
+                if (rows[i] && rows[i].length >= 2 && rows[i][1] && rows[i][1].trim() === codeInput) {
+                    const balanceValue = rows[i][0].trim();
                     found = true;
-                    break;
+
+                    let cardHtml;
+                    if (balanceValue.includes('-TRC')) {
+                        const parts = balanceValue.split('.');
+                        const minutes = parts.length > 1 ? parts[1] : '0';
+                        cardHtml = createBalanceCardHTML({ type: 'TRC', value: minutes, fullCode: balanceValue });
+                    } else if (balanceValue.includes('-ORB')) {
+                        const datePart = balanceValue.replace('ANI.', '').replace('-ORB', '');
+                        cardHtml = createBalanceCardHTML({ type: 'ORB', value: datePart, fullCode: balanceValue });
+                    } else {
+                        cardHtml = createBalanceCardHTML({ type: 'UNKNOWN', value: balanceValue, fullCode: balanceValue });
+                    }
+                    
+                    showResult(cardHtml);
+                    break; 
                 }
             }
 
-            if (found) {
-                showResult(`أهلاً: ${clientName} <br> رصيدك المتبقي: ${clientBalance} دقيقة`, 'success');
-            } else {
-                showResult('الكود غير صحيح أو منتهي', 'error');
+            if (!found) {
+                showResult(`<div class="result-text-box result-error">الكود غير صحيح</div>`);
             }
 
         } catch (error) {
-            showResult('حدث خطأ في الاتصال', 'error');
+            console.error('Fetch Error:', error);
+            showResult(`<div class="result-text-box result-error">يرجى المحاولة مرة أخرى</div>`);
         }
-    }
-    
-    function showResult(message, type) {
-        const resultDiv = document.getElementById('balanceResult');
-        resultDiv.innerHTML = message;
-        resultDiv.className = `result-display ${type === 'success' ? 'result-success' : 'result-error'}`;
-        resultDiv.style.display = 'block';
     }
 </script>
 
 </body>
-
 </html>
-
-
